@@ -27,11 +27,13 @@ export default class TodoInput extends Components {
   }
 
   addTodo() {
+    const content = this.el.firstElementChild.value;
+    if (!content) return;
     this.store.dispatch({
       type: 'addTodo',
       payload: {
         id: (Math.random() * 10e3) | 0,
-        content: this.el.firstElementChild.value
+        content
       }
     });
   }
