@@ -15,8 +15,11 @@ export default class TodoList extends Components {
       <ul>
         ${super.state
           .map(
-            item =>
-              /*html*/ `<li>${item.content}<span class='deleteBtn' data-id=${item.id}> x </span></li>`
+            item => /*html*/ `
+              <li>
+                ${item.content}
+                <button type='button' class='deleteBtn' data-id=${item.id}> 삭제 </button>
+              </li>`
           )
           .join('')}
       </ul>
