@@ -7,7 +7,7 @@ export default class Components {
     this.el = props.element;
 
     props.store instanceof Store
-      ? props.store.subscribe(this.constructor.name, this.render)
+      ? props.store.subscribe(this.render)
       : console.warn('TYPE ERROR: props.store');
   }
   get state() {

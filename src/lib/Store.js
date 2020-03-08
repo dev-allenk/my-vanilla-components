@@ -1,13 +1,13 @@
 export default class Store {
   constructor(reducer, initialState = {}) {
     this.state = initialState;
-    this.observers = {};
+    this.observers = [];
     this.reducer = reducer;
     this.dispatch = this.dispatch.bind(this);
   }
 
-  subscribe(name, render) {
-    this.observers[name] = render;
+  subscribe(callback) {
+    this.observers.push(callback);
   }
 
   dispatch(action) {
@@ -16,6 +16,6 @@ export default class Store {
   }
 
   notify() {
-    Object.keys(this.observers).forEach(name => this.observers[name]());
+    this.observers.forEach(callback => callback());
   }
 }
