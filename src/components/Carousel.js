@@ -6,14 +6,34 @@ export default class Carousel extends Components {
     super(props);
   }
   init() {
-    this.render();
     this.eventOn();
+    this.fetchImages();
   }
 
   render() {
     this.el.innerHTML = /*html*/ `
+      ${super.state
+        .map(
+          image => /*html*/ `
+        <div>
+          <img src=${image.urls.small}/>
+        </div>
+      `
+        )
+        .join('')}
     `;
   }
 
   eventOn() {}
+
+  async fetchImages() {
+    const res = await fetch(
+      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
+    );
+    const data = await res.json();
+
+    this.store.dispatch({ type: 'fetchImages', payload: data });
+  }
 }
+
+const ACCESS_KEY = 'client_id=0IBgt18SLbzqSOv4S7DC5MA9wgG0eyU-MJ_6eGIepzk';
