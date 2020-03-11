@@ -1,19 +1,23 @@
 .carousel-wrapper {
-  max-width: 400px;
+  width: 400px;
+  height: 250px;
 }
 
 .carousel-viewport {
   position: relative;
+  height: inherit;
   overflow: hidden;
 }
 
 .carousel-container {
   display: flex;
+  height: inherit;
   transition: 0.3s;
 }
 
 .carousel-images {
   width: 100%;
+  height: inherit;
   min-width: 100%;
 }
 
@@ -32,4 +36,8 @@
 }
 .carousel-left {
   left: 5px;
+}
+
+.hidden {
+  visibility: hidden;
 }
