@@ -1,5 +1,6 @@
 @import './components/TodoList.css';
 @import './components/TodoInput.css';
+@import './components/Carousel.css';
 
 body {
   margin: 0;
