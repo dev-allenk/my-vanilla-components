@@ -12,15 +12,21 @@ export default class Carousel extends Components {
 
   render() {
     this.el.innerHTML = /*html*/ `
-      ${super.state
-        .map(
-          image => /*html*/ `
-        <div>
-          <img src=${image.urls.small}/>
+    <div class='carousel-wrapper'>
+      <div class='carousel-viewport'>
+        <div class='carousel-container'>
+          ${super.state
+            .map(
+              image => /*html*/ `
+              <img class='carousel-images' src=${image.urls.small}/>
+              `
+            )
+            .join('')}
         </div>
-      `
-        )
-        .join('')}
+        <button type='button' class='carousel-button carousel-left'>왼쪽</button>
+        <button type='button' class='carousel-button carousel-right'>오른쪽</button>
+      </div>
+    </div>
     `;
   }
 

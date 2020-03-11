@@ -1,0 +1,35 @@
+.carousel-wrapper {
+  max-width: 400px;
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  transition: 0.3s;
+}
+
+.carousel-images {
+  width: 100%;
+  min-width: 100%;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.carousel-button:hover {
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.carousel-right {
+  right: 5px;
+}
+.carousel-left {
+  left: 5px;
+}
