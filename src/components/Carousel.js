@@ -10,6 +10,7 @@ export default class Carousel extends Components {
     await this.fetchImages(); //willMount
     this.initialRender();
     this.cacheElements();
+    hide(this.leftButton);
   }
 
   initialRender() {
