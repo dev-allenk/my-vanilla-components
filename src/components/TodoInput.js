@@ -1,5 +1,5 @@
 import Components from '../lib/Components.js';
-import { delegate } from '../utils/index.js';
+import delegate from '../utils/delegate/functionDelegate.js';
 
 export default class TodoInput extends Components {
   constructor(props) {
@@ -18,12 +18,10 @@ export default class TodoInput extends Components {
   }
 
   eventOn() {
-    delegate({
-      element: this.el,
-      eventType: 'click',
-      className: 'addBtn',
-      callback: this.addTodo.bind(this)
-    });
+    delegate(this.addTodo.bind(this))
+      .to(this.el)
+      .when('click')
+      .className('addBtn');
   }
 
   addTodo() {

@@ -1,5 +1,5 @@
 import Components from '../lib/Components.js';
-import delegate from '../utils/delegate/functionDelegate';
+import delegate from '../utils/delegate/functionDelegate.js';
 
 export default class TodoList extends Components {
   constructor(props) {
