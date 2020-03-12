@@ -1,5 +1,5 @@
 import Components from '../lib/Components.js';
-import { delegate } from '../utils/index.js';
+import delegate from '../utils/delegate/functionDelegate.js';
 
 export default class TodoList extends Components {
   constructor(props) {
@@ -27,12 +27,10 @@ export default class TodoList extends Components {
   }
 
   eventOn() {
-    delegate({
-      element: this.el,
-      eventType: 'click',
-      className: 'deleteBtn',
-      callback: this.deleteTodo.bind(this)
-    });
+    delegate(this.deleteTodo.bind(this))
+      .to(this.el)
+      .when('click')
+      .className('deleteBtn');
   }
 
   deleteTodo({ target }) {

@@ -1,15 +1,10 @@
-const addTodo = (state, { id, content }) => {
-  return [...state, { id, content }];
-};
-
-const deleteTodo = (state, { id }) => {
-  return state.filter(item => item.id !== id);
-};
+import * as todoReducer from './todoReducer.js';
+import * as carouselReducer from './carouselReducer.js';
 
 const reducer = (state, { type, payload }) =>
   ({
-    addTodo,
-    deleteTodo
+    ...carouselReducer,
+    ...todoReducer
   }[type](state, payload));
 
 export default reducer;
