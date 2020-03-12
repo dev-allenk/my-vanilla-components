@@ -14,6 +14,35 @@ export default class Carousel extends Components {
     hide(this.leftButton);
   }
 
+  eventOn() {
+    delegate(this.showPrev.bind(this))
+      .to(this.el)
+      .when('click')
+      .className('carousel-left');
+
+    delegate(this.showNext.bind(this))
+      .to(this.el)
+      .when('click')
+      .className('carousel-right');
+  }
+
+  showPrev() {
+    this.store.dispatch({ type: 'showPrev' });
+  }
+
+  showNext() {
+    this.store.dispatch({ type: 'showNext' });
+  }
+
+  async fetchImages() {
+    const res = await fetch(
+      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
+    );
+    const data = await res.json();
+
+    this.store.dispatch({ type: 'fetchImages', payload: data });
+  }
+
   initialRender() {
     this.el.innerHTML = /*html*/ `
     <div class='carousel-wrapper'>
@@ -51,40 +80,16 @@ export default class Carousel extends Components {
     const isLeftEnd = currentIndex === 0;
     const isRightEnd = currentIndex === maxCount - 1;
 
-    _$(this.container).setCss({
-      transform: `translateX(${currentIndex * -100}%)`
-    });
+    this.moveCarousel(currentIndex);
+
     isLeftEnd ? hide(this.leftButton) : show(this.leftButton);
     isRightEnd ? hide(this.rightButton) : show(this.rightButton);
   }
 
-  eventOn() {
-    delegate(this.showPrev.bind(this))
-      .to(this.el)
-      .when('click')
-      .className('carousel-left');
-
-    delegate(this.showNext.bind(this))
-      .to(this.el)
-      .when('click')
-      .className('carousel-right');
-  }
-
-  showPrev() {
-    this.store.dispatch({ type: 'showPrev' });
-  }
-
-  showNext() {
-    this.store.dispatch({ type: 'showNext' });
-  }
-
-  async fetchImages() {
-    const res = await fetch(
-      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
-    );
-    const data = await res.json();
-
-    this.store.dispatch({ type: 'fetchImages', payload: data });
+  moveCarousel(index) {
+    _$(this.container).setCss({
+      transform: `translateX(${index * -100}%)`
+    });
   }
 }
 
