@@ -1,5 +1,6 @@
 import Components from '../lib/Components.js';
 import delegate from '../utils/delegate/functionDelegate.js';
+import { _$, show, hide } from '../utils/index.js';
 
 export default class Carousel extends Components {
   constructor(props) {
@@ -7,7 +8,7 @@ export default class Carousel extends Components {
   }
   async init() {
     this.eventOn();
-    await this.fetchImages(); //willMount
+    await this.fetchImages();
     this.initialRender();
     this.cacheElements();
     hide(this.leftButton);
@@ -88,20 +89,3 @@ export default class Carousel extends Components {
 }
 
 const ACCESS_KEY = 'client_id=0IBgt18SLbzqSOv4S7DC5MA9wgG0eyU-MJ_6eGIepzk';
-
-const show = element => _$(element).removeClass('hidden');
-const hide = element => _$(element).addClass('hidden');
-
-const _$ = element => ({
-  setCss(styles) {
-    element.style.cssText = Object.keys(styles)
-      .map(key => `${key}: ${styles[key]};`)
-      .join('');
-  },
-  addClass(...className) {
-    element.classList.add(...className);
-  },
-  removeClass(...className) {
-    element.classList.remove(...className);
-  }
-});
