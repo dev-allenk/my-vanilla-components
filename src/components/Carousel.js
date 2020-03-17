@@ -1,5 +1,6 @@
 import Components from '../lib/Components.js';
 import delegate from '../utils/delegate/functionDelegate.js';
+import { _$, show, hide } from '../utils/index.js';
 
 export default class Carousel extends Components {
   constructor(props) {
@@ -7,10 +8,39 @@ export default class Carousel extends Components {
   }
   async init() {
     this.eventOn();
-    await this.fetchImages(); //willMount
+    await this.fetchImages();
     this.initialRender();
     this.cacheElements();
     hide(this.leftButton);
+  }
+
+  eventOn() {
+    delegate(this.showPrev.bind(this))
+      .to(this.el)
+      .when('click')
+      .className('carousel-left');
+
+    delegate(this.showNext.bind(this))
+      .to(this.el)
+      .when('click')
+      .className('carousel-right');
+  }
+
+  showPrev() {
+    this.store.dispatch({ type: 'showPrev' });
+  }
+
+  showNext() {
+    this.store.dispatch({ type: 'showNext' });
+  }
+
+  async fetchImages() {
+    const res = await fetch(
+      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
+    );
+    const data = await res.json();
+
+    this.store.dispatch({ type: 'fetchImages', payload: data });
   }
 
   initialRender() {
@@ -50,58 +80,17 @@ export default class Carousel extends Components {
     const isLeftEnd = currentIndex === 0;
     const isRightEnd = currentIndex === maxCount - 1;
 
-    _$(this.container).setCss({
-      transform: `translateX(${currentIndex * -100}%)`
-    });
+    this.moveCarousel(currentIndex);
+
     isLeftEnd ? hide(this.leftButton) : show(this.leftButton);
     isRightEnd ? hide(this.rightButton) : show(this.rightButton);
   }
 
-  eventOn() {
-    delegate(this.showPrev.bind(this))
-      .to(this.el)
-      .when('click')
-      .className('carousel-left');
-
-    delegate(this.showNext.bind(this))
-      .to(this.el)
-      .when('click')
-      .className('carousel-right');
-  }
-
-  showPrev() {
-    this.store.dispatch({ type: 'showPrev' });
-  }
-
-  showNext() {
-    this.store.dispatch({ type: 'showNext' });
-  }
-
-  async fetchImages() {
-    const res = await fetch(
-      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
-    );
-    const data = await res.json();
-
-    this.store.dispatch({ type: 'fetchImages', payload: data });
+  moveCarousel(index) {
+    _$(this.container).setCss({
+      transform: `translateX(${index * -100}%)`
+    });
   }
 }
 
 const ACCESS_KEY = 'client_id=0IBgt18SLbzqSOv4S7DC5MA9wgG0eyU-MJ_6eGIepzk';
-
-const show = element => _$(element).removeClass('hidden');
-const hide = element => _$(element).addClass('hidden');
-
-const _$ = element => ({
-  setCss(styles) {
-    element.style.cssText = Object.keys(styles)
-      .map(key => `${key}: ${styles[key]};`)
-      .join('');
-  },
-  addClass(...className) {
-    element.classList.add(...className);
-  },
-  removeClass(...className) {
-    element.classList.remove(...className);
-  }
-});
