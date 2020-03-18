@@ -23,8 +23,11 @@ export default class Components {
   }
 
   mount(element) {
-    this.el = element;
+    this.el = document.createElement('div');
+    this.el.className = this.constructor.name;
     this.init();
+
+    element.appendChild(this.el);
   }
 
   init() {

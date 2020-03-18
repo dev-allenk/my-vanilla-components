@@ -14,11 +14,9 @@ const todoList = new TodoList({ store: todoStore });
 const carousel = new Carousel({ store: carouselStore });
 
 window.addEventListener('DOMContentLoaded', () => {
-  const todoInputEl = document.getElementById('todoInput');
-  const todoListEl = document.getElementById('todoList');
-  const carouselEl = document.getElementById('carousel');
+  const root = document.getElementById('root');
 
-  todoInput.mount(todoInputEl);
-  todoList.mount(todoListEl);
-  carousel.mount(carouselEl);
+  todoInput.mount(root);
+  todoList.mount(root);
+  carousel.mount(root);
 });
