@@ -1,9 +1,10 @@
 export default class Store {
-  constructor(reducer, initialState = {}) {
+  constructor(reducer, initialState = {}, options = {}) {
     this.state = initialState;
     this.observers = [];
     this.reducer = reducer;
     this.dispatch = this.dispatch.bind(this);
+    this.options = options;
   }
 
   subscribe(callback) {
@@ -12,6 +13,8 @@ export default class Store {
 
   dispatch(action) {
     this.state = this.reducer(this.state, action);
+    this.options.logger &&
+      console.log('action: ', action, '\nstate: ', this.state);
     this.notify();
   }
 

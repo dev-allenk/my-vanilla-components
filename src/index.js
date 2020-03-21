@@ -6,7 +6,7 @@ import reducer from './reducer/reducer.js';
 
 const todoState = [];
 const carouselState = {};
-const todoStore = new Store(reducer, todoState);
+const todoStore = new Store(reducer, todoState, { logger: true });
 const carouselStore = new Store(reducer, carouselState);
 
 const todoInput = new TodoInput({ store: todoStore });
