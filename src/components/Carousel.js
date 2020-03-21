@@ -35,11 +35,7 @@ export default class Carousel extends Component {
   }
 
   async fetchImages() {
-    const res = await fetch(
-      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
-    );
-    const data = await res.json();
-
+    const data = await super.api.fetchRandomImages();
     super.dispatch({ type: 'fetchImages', payload: data });
   }
 
@@ -92,5 +88,3 @@ export default class Carousel extends Component {
     });
   }
 }
-
-const ACCESS_KEY = 'client_id=0IBgt18SLbzqSOv4S7DC5MA9wgG0eyU-MJ_6eGIepzk';
