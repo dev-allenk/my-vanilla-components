@@ -1,8 +1,8 @@
-import Components from '../lib/Components.js';
+import Component from '../lib/Component.js';
 import delegate from '../utils/delegate/functionDelegate.js';
 import { _$, show, hide } from '../utils/index.js';
 
-export default class Carousel extends Components {
+export default class Carousel extends Component {
   constructor(props) {
     super(props);
   }
@@ -27,11 +27,11 @@ export default class Carousel extends Components {
   }
 
   showPrev() {
-    this.store.dispatch({ type: 'showPrev' });
+    super.dispatch({ type: 'showPrev' });
   }
 
   showNext() {
-    this.store.dispatch({ type: 'showNext' });
+    super.dispatch({ type: 'showNext' });
   }
 
   async fetchImages() {
@@ -40,7 +40,7 @@ export default class Carousel extends Components {
     );
     const data = await res.json();
 
-    this.store.dispatch({ type: 'fetchImages', payload: data });
+    super.dispatch({ type: 'fetchImages', payload: data });
   }
 
   initialRender() {
