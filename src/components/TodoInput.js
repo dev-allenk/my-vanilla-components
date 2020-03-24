@@ -1,7 +1,7 @@
-import Components from '../lib/Components.js';
+import Component from '../lib/Component.js';
 import delegate from '../utils/delegate/functionDelegate.js';
 
-export default class TodoInput extends Components {
+export default class TodoInput extends Component {
   constructor(props) {
     super(props);
   }
@@ -27,7 +27,7 @@ export default class TodoInput extends Components {
   addTodo() {
     const content = this.el.firstElementChild.value;
     if (!content) return;
-    this.store.dispatch({
+    super.dispatch({
       type: 'addTodo',
       payload: {
         id: (Math.random() * 10e3) | 0,

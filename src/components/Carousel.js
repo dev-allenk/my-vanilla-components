@@ -1,8 +1,8 @@
-import Components from '../lib/Components.js';
+import Component from '../lib/Component.js';
 import delegate from '../utils/delegate/functionDelegate.js';
 import { _$, show, hide } from '../utils/index.js';
 
-export default class Carousel extends Components {
+export default class Carousel extends Component {
   constructor(props) {
     super(props);
   }
@@ -27,20 +27,16 @@ export default class Carousel extends Components {
   }
 
   showPrev() {
-    this.store.dispatch({ type: 'showPrev' });
+    super.dispatch({ type: 'showPrev' });
   }
 
   showNext() {
-    this.store.dispatch({ type: 'showNext' });
+    super.dispatch({ type: 'showNext' });
   }
 
   async fetchImages() {
-    const res = await fetch(
-      `https://api.unsplash.com/photos/random?count=5&${ACCESS_KEY}`
-    );
-    const data = await res.json();
-
-    this.store.dispatch({ type: 'fetchImages', payload: data });
+    const data = await super.api.fetchRandomImages();
+    super.dispatch({ type: 'fetchImages', payload: data });
   }
 
   initialRender() {
@@ -92,5 +88,3 @@ export default class Carousel extends Components {
     });
   }
 }
-
-const ACCESS_KEY = 'client_id=0IBgt18SLbzqSOv4S7DC5MA9wgG0eyU-MJ_6eGIepzk';

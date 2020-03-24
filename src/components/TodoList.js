@@ -1,7 +1,7 @@
-import Components from '../lib/Components.js';
+import Component from '../lib/Component.js';
 import delegate from '../utils/delegate/functionDelegate.js';
 
-export default class TodoList extends Components {
+export default class TodoList extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,7 +34,7 @@ export default class TodoList extends Components {
   }
 
   deleteTodo({ target }) {
-    this.store.dispatch({
+    super.dispatch({
       type: 'deleteTodo',
       payload: { id: Number(target.dataset.id) }
     });
